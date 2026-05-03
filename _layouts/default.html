@@ -10,27 +10,29 @@
     {% include footer.html %}
    
 <style>
-/* 全局图片右下角悬浮水印 只网页展示 不改原图 */
-.thumb img, .grid-item img {
-    position: relative !important;
+/* 全局页面水印 全覆盖 适配你的画廊模板 */
+body {
+    position: relative;
 }
-.thumb::after, .grid-item::after {
-    content: "Elaina · 摄影";
-    position: absolute;
-    right: 16px;
-    bottom: 16px;
-    color: rgba(255,255,255,0.3);
-    font-size: 14px;
+body::after {
+    content: "shot by Justyou";
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: rgba(255,255,255,0.35);
+    font-size: 15px;
     pointer-events: none;
-    z-index: 999;
+    z-index: 9999;
 }
 </style>
 
+<!-- 禁止右键下载 -->
 <script>
-// 禁止右键盗图
-document.oncontextmenu = function(){return false;}
-document.ondragstart = function(){return false;}
+document.oncontextmenu = ()=>false;
+document.ondragstart = ()=>false;
+document.onselectstart = ()=>false;
 </script>
+
 
 </body>
 </html>
