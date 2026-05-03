@@ -10,30 +10,27 @@
     {% include footer.html %}
    
 <style>
-/*添加悬浮水印*/
-.wrap-img {
-    position: relative;
+/* 全局图片右下角悬浮水印 只网页展示 不改原图 */
+.thumb img, .grid-item img {
+    position: relative !important;
 }
-.wrap-img::after {
-    content: "Shot by Justyou 柚";
+.thumb::after, .grid-item::after {
+    content: "Elaina · 摄影";
     position: absolute;
-    right: 12px;
-    bottom: 12px;
-    color: rgba(255,255,255,0.32);
+    right: 16px;
+    bottom: 16px;
+    color: rgba(255,255,255,0.3);
     font-size: 14px;
     pointer-events: none;
+    z-index: 999;
 }
 </style>
 
 <script>
-// 给所有图片自动套水印层级
-window.onload = function(){
-    let imgs = document.querySelectorAll("img");
-    imgs.forEach(img=>{
-        img.classList.add("wrap-img");
-    })
-}
-
+// 禁止右键盗图
+document.oncontextmenu = function(){return false;}
+document.ondragstart = function(){return false;}
+</script>
 
 </body>
 </html>
