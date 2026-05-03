@@ -8,5 +8,29 @@
     {{ content }}
     
     {% include footer.html %}
+   
+<style>
+/* 网页悬浮水印 不改动原图文件 */
+img {
+    position: relative;
+}
+img:hover::after {
+    content: "shot by Justyou 柚";
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: rgba(255,255,255,0.28);
+    font-size: 15px;
+    pointer-events: none;
+}
+</style>
+
+<!-- 禁止右键盗图 -->
+<script>
+document.oncontextmenu = ()=>false;
+document.ondragstart = ()=>false;
+document.onselectstart = ()=>false;
+</script>
+
 </body>
 </html>
