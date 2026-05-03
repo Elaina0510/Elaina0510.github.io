@@ -195,13 +195,26 @@
 	  // Hide original img.
 	  $image_img.hide();
 
-	  // EXIF data
-	  $image_img[0].addEventListener("load", function() {
-		EXIF.getData($image_img[0], function () {
-			exifDatas[$image_img.data('name')] = getExifDataMarkup(this);
+	// EXIF data
+function runExifExtraction($img) {
+    EXIF.getData($img[0], function() {
+        // 增加一个简单的日志，测试是否触发
+        console.log("EXIF data extracted for:", $img.data('name')); 
+        exifDatas[$img.data('name')] = getExifDataMarkup(this);
+    });
+}
+
+// 检查图片是否已经加载完成
+if ($image_img[0].complete) {
+    runExifExtraction($image_img);
+} else {
+    // 如果没加载完，再绑定 load 事件
+    $image_img[0].addEventListener("load", function() {
+        runExifExtraction($image_img);
+    });
+}
 		});
 	  });
-	});
   
 	// Poptrox.
 	$main.poptrox({
