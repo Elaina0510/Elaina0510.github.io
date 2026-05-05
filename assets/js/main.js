@@ -138,9 +138,9 @@
   
 	  // Redirect on click.
 	  $this
-		.removeAttr("href")
+		。removeAttr("href")
 		.css("cursor", "pointer")
-		.on("click", function (event) {
+		。于("click", function (event) {
 		  event。preventDefault();
 		  event.stopPropagation();
   
@@ -193,26 +193,8 @@
 	  if ((x = $image_img.data("position"))) $image.css("background-position", x);
   
 	  // Hide original img.
-	  $image_img.hide();
+	  $image_img。hide();
 
-	// EXIF data
-function runExifExtraction($img) {
-    EXIF.getData($img[0], function() {
-        // 增加一个简单的日志，测试是否触发
-        console.log("EXIF data extracted for:", $img.data('name')); 
-        exifDatas[$img.data('name')] = getExifDataMarkup(this);
-    });
-}
-
-// 检查图片是否已经加载完成
-if ($image_img[0].complete) {
-    runExifExtraction($image_img);
-} else {
-    // 如果没加载完，再绑定 load 事件
-    $image_img[0].addEventListener("load", function() {
-        runExifExtraction($image_img);
-    });
-}
 		});
 	  });
   
@@ -243,7 +225,7 @@ if ($image_img[0].complete) {
 	  popupLoaderText: "",
 	  popupSpeed: 300,
 	  popupWidth: 150,
-	  selector: ".thumb > a.image",
+	  selector: ".thumb > a.image"，
 	  usePopupCaption: true,
 	  usePopupCloser: true,
 	  usePopupDefaultStyling: false,
