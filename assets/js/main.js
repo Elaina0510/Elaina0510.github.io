@@ -87,8 +87,8 @@
 		})
 		.on("---hide", function () {
 		  // Deactivate content, toggles.
-		  $this.removeClass("active");
-		  $toggles.removeClass("active");
+		  $this。removeClass("active");
+		  $toggles。removeClass("active");
   
 		  // Deactivate body.
 		  $body.removeClass("content-active");
@@ -141,7 +141,7 @@
 		.removeAttr("href")
 		.css("cursor", "pointer")
 		.on("click", function (event) {
-		  event.preventDefault();
+		  event。preventDefault();
 		  event.stopPropagation();
   
 		  window.location.href = href;
@@ -263,17 +263,36 @@ if ($image_img[0].complete) {
 	});
   
 	function getExifDataMarkup(img) {
-		var exif = $('#main').data('exif');
-		var template = '';
+    // 1. 检查配置是否注入
+    var exif = $('#main').data('exif');
+    console.log("🔍 [侦探] 正在读取配置 #main.data('exif') ->", exif); 
+    
+    if (!exif) {
+        console.error("❌ [侦探] 致命错误：找不到 EXIF 配置！网页没有正确加载配置信息。");
+        return "";
+    }
 
-		for (var current in exif) {
-			var current_data = exif[current];
-			var exif_data = EXIF.getTag(img, current_data['tag']);
-			if (typeof exif_data !== "undefined") {
-				template += '<i class="' + current_data['icon'] + '" aria-hidden="true"></i> ' + exif_data + '&nbsp;&nbsp;';
-			}
-		}
-		return template;
-	}
+    var template = '';
+    // 2. 遍历并读取
+    for (var current in exif) {
+        var current_data = exif[current];
+        var tag = current_data['tag'];
+        
+        // 尝试获取 EXIF 标签
+        var exif_data = EXIF.getTag(img, tag);
+        
+        console.log("🔍 [侦探] 尝试标签 [" + tag + "]，读取结果:", exif_data);
+
+        if (typeof exif_data !== "undefined" && exif_data !== null) {
+            template += '<i class="' + current_data['icon'] + '"></i> ' + exif_data + ' ';
+            console.log("✅ [侦探] 匹配成功：标签 [" + tag + "] 读到了数据");
+        } else {
+            console.warn("⚠️ [侦探] 标签 [" + tag + "] 为空，跳过。");
+        }
+    }
+    
+    console.log("🎉 [侦探] 最终生成的 HTML 片段:", template);
+    return template;
+}
 
   })(jQuery);
